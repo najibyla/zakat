@@ -1,2 +1,17 @@
-.venv
+# Environnement virtuel
+.venv/
+env/
+venv/
+ENV/
+
+# Cache Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Streamlit
+.streamlit/
+
+# Fichiers système
+.DS_Store
 howTo

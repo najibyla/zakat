@@ -35,7 +35,25 @@ with col2:
     try:
         prix_or_gramme = obtenir_prix_or_gramme(devise)
         nissab_monnaie = 85 * prix_or_gramme
-        st.info(f"💡 **NISSAB DU JOUR**\n\nLe seuil (85g d'or) est fixé à : **{nissab_monnaie:,.2f} {devise}**")
+        
+        # Liens dynamiques
+        url_gold = "https://finance.yahoo.com/quote/GC=F/"
+        url_currency = f"https://finance.yahoo.com/quote/USD{devise}=X/"
+        
+        message_info = f"""
+            💡 **NISSAB DU JOUR**
+            
+            Le seuil (85g d'or) est fixé à : **{nissab_monnaie:,.2f} {devise}**
+            
+            🔗 [Vérifier le cours de l'or (USD)]({url_gold})
+        """
+        
+        # Si la devise n'est pas l'USD, on ajoute le lien vers le taux de change
+        if devise != "USD":
+            message_info += f"\n\n🔗 [Vérifier le taux USD/{devise}]({url_currency})"
+            
+        st.info(message_info)
+        
     except Exception:
         st.error("❌ Impossible de récupérer le cours de l'or. Mode manuel activé.")
         prix_or_gramme = st.number_input("Prix d'un gramme d'or", min_value=1.0, value=1500.0)
