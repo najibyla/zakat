@@ -36,28 +36,25 @@ with col2:
         prix_or_gramme = obtenir_prix_or_gramme(devise)
         nissab_monnaie = 85 * prix_or_gramme
         
-        # Liens dynamiques
         url_gold = "https://finance.yahoo.com/quote/GC=F/"
         url_currency = f"https://finance.yahoo.com/quote/USD{devise}=X/"
         
-        message_info = f"""
-            💡 **NISSAB DU JOUR**
-            
-            Le seuil (85g d'or) est fixé à : **{nissab_monnaie:,.2f} {devise}**
-            
-            🔗 [Vérifier le cours de l'or (USD)]({url_gold})
-        """
+        # On utilise une f-string propre sans indentations cachées
+        texte_nissab = (
+            f"💡 **NISSAB DU JOUR**\n\n"
+            f"Le seuil (85g d'or) est fixé à : **{nissab_monnaie:,.2f} {devise}**\n\n"
+            f"🔗 [Vérifier le cours de l'or (USD)]({url_gold})"
+        )
         
-        # Si la devise n'est pas l'USD, on ajoute le lien vers le taux de change
         if devise != "USD":
-            message_info += f"\n\n🔗 [Vérifier le taux USD/{devise}]({url_currency})"
+            texte_nissab += f"\n\n🔗 [Vérifier le taux USD/{devise}]({url_currency})"
             
-        st.info(message_info)
+        # Affichage propre
+        st.info(texte_nissab)
         
     except Exception:
-        st.error("❌ Impossible de récupérer le cours de l'or. Mode manuel activé.")
-        prix_or_gramme = st.number_input("Prix d'un gramme d'or", min_value=1.0, value=1500.0)
-        nissab_monnaie = 85 * prix_or_gramme
+        st.error("❌ Impossible de récupérer le cours de l'or.")
+        # ... reste du code
 
 st.divider()
 
